@@ -2,10 +2,11 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import todoApp from './reducers'
+import recipes from './recipes';
+import recipeDucks from './ducks'
 import App from './components/App'
 
-let store = createStore(todoApp)
+let store = createStore(recipeDucks, { recipes, selections: [] }, window.devToolsExtension && window.devToolsExtension())
 
 render(
   <Provider store={store}>

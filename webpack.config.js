@@ -21,8 +21,12 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loaders: [ 'babel' ],
-        exclude: /node_modules/,
-        include: __dirname
+        exclude: /node_modules/
+      },
+      {
+        test: /\.json$/,
+        loaders: [ 'json' ],
+        exclude: /node_modules/
       }
     ]
   }
