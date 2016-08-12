@@ -24,11 +24,12 @@ class RecipeList extends React.Component{
                         {allIngredients.map(i => <option value={i} key={i}>{i}</option>)}
                     </select>
                 </div>
+                <br/>
                 <RecipeTable recipes={recipes} selections={selections} toggleSelectRecipe={toggleSelectRecipe} />
             </Col>
             <Col sm={6}>
                 <h2>Required Ingredients</h2>
-                <IngredientList ingredients={selectedIngredients} selections={selections} />
+                <IngredientList ingredients={selectedIngredients} ingredientFilter={ingredientFilter} selections={selections} />
             </Col>
         </Row>;
     }

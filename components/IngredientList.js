@@ -3,7 +3,7 @@ import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import initial from 'lodash/initial';
 import last from 'lodash/last';
 
-const IngredientList = ({ ingredients, selections }) => { 
+const IngredientList = ({ ingredients, ingredientFilter, selections }) => { 
     if(ingredients.length > 0 && selections.length > 0){
         const selectedRecipeText = selections.length > 1 ? `${initial(selections).join(', ')} and ${last(selections)}` : selections[0]; 
         return <div>

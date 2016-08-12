@@ -1,15 +1,32 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { compose, createStore } from 'redux'
+import persistState, {mergePersistedState} from 'redux-localstorage';
+import adapter from 'redux-localstorage/lib/adapters/localStorage';
+import filter from 'redux-localstorage-filter';
+
 import recipes from './recipes';
-import recipeDucks from './ducks'
+import rootReducer from './ducks'
 import App from './components/App'
 
-let store = createStore(
-  recipeDucks, 
-  { ingredientFilter: '', recipes, selections: [] }, 
+const enhancedReducer = compose(
+  mergePersistedState()
+)(rootReducer);
+
+const storage = compose(
+  filter(['ingredientFilter', 'selections'])
+)(adapter(window.localStorage));
+
+const storeEnhancer = compose(
+  persistState(storage, 'dsi-fetest-rp'),
   window.devToolsExtension && window.devToolsExtension()
+)
+
+let store = createStore(
+  enhancedReducer, 
+  { ingredientFilter: '', recipes, selections: [] }, 
+  storeEnhancer
 )
 
 render(
