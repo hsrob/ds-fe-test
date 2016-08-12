@@ -3,12 +3,16 @@ import without from 'lodash/without';
 
 // Action Types
 const TOGGLE_SELECT_RECIPE = 'TOGGLE_SELECT_RECIPE';
-export const ACTION_TYPES = { TOGGLE_SELECT_RECIPE };
+const CLEAR_SELECTED_RECIPES = 'CLEAR_SELECTED_RECIPES';
+export const ACTION_TYPES = { TOGGLE_SELECT_RECIPE, CLEAR_SELECTED_RECIPES };
 
 // Actions
 export const toggleSelectRecipe = (name) => ({
     type: TOGGLE_SELECT_RECIPE,
     payload: name
+});
+export const clearSelectedRecipes = (name) => ({
+    type: CLEAR_SELECTED_RECIPES
 });
 
 // Reducer
@@ -21,6 +25,8 @@ const recipeSelectReducer = (state = [], action) => {
                 action.payload
             ]
             : without(state, action.payload);
+        case CLEAR_SELECTED_RECIPES:
+            return [];
         default:
             return state;
     }

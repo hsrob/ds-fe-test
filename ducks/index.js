@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
-import recipeSelectReducer from './recipeSelect';
+import recipeSelectReducer from './recipeSelectDuck';
+import ingredientFilterReducer from './ingredientFilterDuck';
 
 export default combineReducers({
-    selections: recipeSelectReducer,
-    recipes: (state = [], action) => state
+    ingredientFilter: ingredientFilterReducer,
+    recipes: (state = [], action) => state,
+    selections: recipeSelectReducer    
 });

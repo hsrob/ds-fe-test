@@ -6,7 +6,11 @@ import recipes from './recipes';
 import recipeDucks from './ducks'
 import App from './components/App'
 
-let store = createStore(recipeDucks, { recipes, selections: [] }, window.devToolsExtension && window.devToolsExtension())
+let store = createStore(
+  recipeDucks, 
+  { ingredientFilter: '', recipes, selections: [] }, 
+  window.devToolsExtension && window.devToolsExtension()
+)
 
 render(
   <Provider store={store}>

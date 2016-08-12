@@ -1,66 +1,42 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Button, ListGroup, ListGroupItem, Table } from 'react-bootstrap';
-import map from 'lodash/map';
 
-import { toggleSelectRecipe } from '../ducks/recipeSelect';
-import { getSelectedRecipes, getSelectedRecipeIngredientsSorted, getAllRecipeIngredients } from '../selectors/recipeSelectors';
+import { clearSelectedRecipes, toggleSelectRecipe } from '../ducks/recipeSelectDuck';
+import { applyIngredientFilter, clearIngredientFilter } from '../ducks/ingredientFilterDuck';
+import { getAllRecipeIngredients, getIngredientFilteredRecipes, getSelectedRecipeIngredientsSorted } from '../selectors/recipeSelectors';
+
+import RecipeTable from '../components/RecipeTable';
 import IngredientList from '../components/IngredientList';
 
 class RecipeList extends React.Component{
-    constructor(props){
-        super(props);
-        this.toggleSelection = this.toggleSelection.bind(this);
-    }
-    toggleSelection(name) {
-        const { dispatch } = this.props;
-        dispatch(toggleSelectRecipe(name));
-    }
     render() {
-        const { props: { recipes, selections, selectedIngredients }, toggleSelection } = this;
+        const { allIngredients, clearSelectedRecipes, ingredientFilter, recipes, selections, selectedIngredients, /* bound action creators -> */ applyIngredientFilter, clearIngredientFilter, toggleSelectRecipe } = this.props;
+        
         return <Row>
             <Col sm={6}>
                 <h2>Recipes</h2>
                 <div>
-                    <select >
-                    
+                    <label htmlFor="ingredient-filter">Show only recipes containing</label>
+                    <select id="ingredient-filter" className="form-control" 
+                        value={ingredientFilter} onChange={e => { clearSelectedRecipes(); applyIngredientFilter(e.target.value); }}>
+                        <option value="" key="__any">-- Any Ingredients --</option>
+                        {allIngredients.map(i => <option value={i} key={i}>{i}</option>)}
                     </select>
                 </div>
-                <Table bordered hover>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Ingredients</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { map(recipes, (r) => (
-                            <tr key={r.name}>
-                                <td>
-                                <input type="checkbox" 
-                                    value={selections => selections.indexOf(r.name) > -1} 
-                                    onChange={ _ => toggleSelection(r.name)} />
-                                </td>
-                                <td>{r.name}</td>
-                                <td>{r.type}</td>
-                                <td>{r.ingredients.join(', ')}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table>
+                <RecipeTable recipes={recipes} selections={selections} toggleSelectRecipe={toggleSelectRecipe} />
             </Col>
             <Col sm={6}>
                 <h2>Required Ingredients</h2>
-                <IngredientList ingredients={selectedIngredients} />
+                <IngredientList ingredients={selectedIngredients} selections={selections} />
             </Col>
         </Row>;
     }
 }
 export default connect((state) => ({
-    recipes: state.recipes,
+    allIngredients: getAllRecipeIngredients(state),
+    ingredientFilter: state.ingredientFilter,
+    recipes: getIngredientFilteredRecipes(state),
     selections: state.selections,
-    selectedIngredients: getSelectedRecipeIngredientsSorted(state),
-    allIngredients: getAllRecipeIngredients(state)
-}))(RecipeList);
+    selectedIngredients: getSelectedRecipeIngredientsSorted(state)    
+}), { applyIngredientFilter, clearIngredientFilter, clearSelectedRecipes, toggleSelectRecipe })(RecipeList);
