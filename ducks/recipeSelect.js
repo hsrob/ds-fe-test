@@ -1,20 +1,26 @@
 import assign from 'lodash/assign';
 import without from 'lodash/without';
 
-const SELECT_RECIPE = 'SELECT_RECIPE';
-const DESELECT_RECIPE = 'DESELECT_RECIPE';
+// Action Types
+const TOGGLE_SELECT_RECIPE = 'TOGGLE_SELECT_RECIPE';
+export const ACTION_TYPES = { TOGGLE_SELECT_RECIPE };
 
+// Actions
+export const toggleSelectRecipe = (name) => ({
+    type: TOGGLE_SELECT_RECIPE,
+    payload: name
+});
+
+// Reducer
 const recipeSelectReducer = (state = [], action) => {
     switch(action.type){
-        case SELECT_RECIPE:
+        case TOGGLE_SELECT_RECIPE:
             return state.indexOf(action.payload) === -1 ? 
             [
                 ...state,
                 action.payload
             ]
-            : state;
-        case DESELECT_RECIPE:
-            return without(state, action.payload);
+            : without(state, action.payload);
         default:
             return state;
     }
