@@ -18,6 +18,7 @@ This application uses React and Redux to render the (V)DOM and maintain applicat
   * `reselect` - Memoized selectors to compute derived data from the Redux store
 * general libs
   * `lodash` - General utility library
+  
 ## Requirements
 
 Using the provided JSON data representing a collection of meal recipes, create a micro frontend application that meets the following criteria:
