@@ -1,7 +1,6 @@
 import React from 'react';
-import RecipeList from '../containers/RecipeList';
-const App = () => (
+const App = (props) => (
     <div className="container-fluid">
-        <RecipeList />
+        {props.children}
     </div>);
 export default App;
