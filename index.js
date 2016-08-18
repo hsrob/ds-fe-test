@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import compose from 'lodash/compose';
+import flowRight from 'lodash/flowRight';
 import { applyMiddleware, createStore, combineReducers } from 'redux'
 import persistState, {mergePersistedState} from 'redux-localstorage';
 import adapter from 'redux-localstorage/lib/adapters/localStorage';
@@ -14,15 +14,15 @@ import rootReducer from './ducks'
 import App from './components/App'
 import RecipeList from './containers/RecipeList';
 
-const enhancedReducer = compose(
+const enhancedReducer = flowRight(
   mergePersistedState()
 )(rootReducer);
 
-const storage = compose(
+const storage = flowRight(
   filter(['ingredientFilter', 'selections'])
 )(adapter(window.localStorage));
 
-const storeEnhancer = compose(
+const storeEnhancer = flowRight(
   applyMiddleware(routerMiddleware(browserHistory)),
   persistState(storage, 'dsi-fetest-rp'),
   window.devToolsExtension && window.devToolsExtension()
