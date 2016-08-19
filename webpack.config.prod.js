@@ -9,12 +9,6 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false,
-        screw_ie8: true
-      }
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     })
