@@ -6,7 +6,7 @@ This application uses React and Redux to render the (V)DOM and maintain applicat
 ## Instructions
 
 * Clone this repo
-* `npm install` to install libs, then `npm server.js` to run the webpack development server
+* `npm install` to install libs, then `node server.js` to run the webpack development server
 * Go to `localhost:3000` to use the application!
 
 ## Additional Lib Info
