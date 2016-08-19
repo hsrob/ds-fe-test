@@ -25,7 +25,7 @@ const storage = flowRight(
 const storeEnhancer = flowRight(
   applyMiddleware(routerMiddleware(browserHistory)),
   persistState(storage, 'dsi-fetest-rp'),
-  window.devToolsExtension && window.devToolsExtension()
+  window.devToolsExtension ? window.devToolsExtension() : f => f
 )
 
 let store = createStore(
