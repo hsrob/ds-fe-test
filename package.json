@@ -1,21 +1,24 @@
 {
-  "name": "frontend-code-test",
+  "name": "ds-fe-test",
   "version": "1.0.0",
-  "description": "Robert Parker's Front End Code Test",
+  "description": "Robert Parker's DataScience Front End Code Test",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node server",
+    "postinstall": "npm run build",
+    "build": "rimraf static && cross-env NODE_ENV=production webpack --config ./webpack.config.prod.js --progress --profile --colors",
+    "start": "cross-env NODE_ENV=production node server"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/datascienceinc/frontend-code-test.git"
+    "url": "git+https://github.com/hsrob/ds-fe-test.git"
   },
   "author": "Robert Parker",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/datascienceinc/frontend-code-test/issues"
+    "url": "https://github.com/hsrob/ds-fe-test/issues"
   },
-  "homepage": "https://github.com/datascienceinc/frontend-code-test#readme",
+  "homepage": "https://github.com/hsrob/ds-fe-test#readme",
   "devDependencies": {
     "babel-core": "^6.13.2",
     "babel-loader": "^6.2.4",
@@ -23,8 +26,10 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-react-hmre": "^1.1.1",
     "copy-webpack-plugin": "^3.0.1",
+    "cross-env": "^2.0.0",
     "express": "^4.14.0",
     "json-loader": "^0.5.4",
+    "rimraf": "^2.5.4",
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2"
