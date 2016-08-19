@@ -14,6 +14,7 @@ const RecipeTable = ({ recipes, selections, toggleSelectRecipe }) => {
                 <th></th>
                 <th>Name</th>
                 <th>Type</th>
+                <th>Cook Time</th>
                 <th>Ingredients</th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@ const RecipeTable = ({ recipes, selections, toggleSelectRecipe }) => {
                     </td>
                     <td>{r.name}</td>
                     <td>{r.type}</td>
+                    <td>{r.cook_time}</td>
                     <td>{r.ingredients.join(', ')}</td>
                 </tr>
             ))}
